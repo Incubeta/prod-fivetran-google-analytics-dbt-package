@@ -1,0 +1,10 @@
+fixed:
+  type: bigquery
+  method: oauth
+  priority: interactive
+prompts:
+  dataset:
+    type: string
+    hint: the dataset where the models are created
+    default: RAW_main
+
