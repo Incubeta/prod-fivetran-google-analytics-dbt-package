@@ -1,0 +1,5 @@
+version: 2
+models:
+    - name: googleanalytics4-channel_performance-v1
+      Config:
+        event_name: date

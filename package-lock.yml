@@ -1,0 +1,8 @@
+packages:
+  - package: fivetran/fivetran_utils
+    version: 0.4.10
+  - git: https://github.com/Incubeta/prod-fivetran-openexchange-dbt-package.git
+    revision: 2a768f170d4f4b3f9469f064092e42921a16bcbd
+  - package: dbt-labs/dbt_utils
+    version: 1.3.0
+sha1_hash: 66bda610330129f9d808d89c86104b3029c753f5
