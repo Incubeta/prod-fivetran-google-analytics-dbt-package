@@ -15,14 +15,11 @@ with ga_table_1 as (
     -- Metrics
     safe_cast(add_to_carts as string) as add_to_carts,
     safe_cast(bounce_rate as string) as bounce_rate,
-    safe_cast(key_events as string) as key_events,
     safe_cast(engaged_sessions as string) as engaged_sessions,
-    safe_cast(event_count as string) as event_count,
     safe_cast(event_value as string) as event_value,
     safe_cast(new_users as string) as new_users,
-    safe_cast(screen_page_views as string) as screen_page_views,
     safe_cast(sessions as string) as sessions,
-    safe_cast(shipping_amount as string) as shipping_amount
+    safe_cast(user_engagement_duration as string) as user_engagement_duration
   from {{ source('ga4', 'ga4_channel_performance_v_1') }}
   {% if is_incremental() %}
 
@@ -48,10 +45,12 @@ ga_table_2 as (
     safe_cast(session_manual_ad_content as string) as session_manual_ad_content,
     safe_cast(session_source_medium as string) as session_source_medium,
     -- Metrics
+    safe_cast(key_events as string) as key_events,
     safe_cast(tax_amount as string) as tax_amount,
+    safe_cast(event_count as string) as event_count,
     safe_cast(total_revenue as string) as total_revenue,
     safe_cast(transactions as string) as transactions,
-    safe_cast(user_engagement_duration as string) as user_engagement_duration
+    safe_cast(shipping_amount as string) as shipping_amount
   from {{ source('ga4', 'ga4_channel_performance_v_2') }}
   {% if is_incremental() %}
 
@@ -104,7 +103,6 @@ final as (
     event_count as eventCount,
     event_value as eventValue,
     new_users as newUsers,
-    screen_page_views as screenPageViews,
     sessions as sessions,
     shipping_amount as shippingAmount,
     tax_amount as taxAmount,
