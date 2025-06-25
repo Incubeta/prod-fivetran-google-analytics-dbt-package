@@ -20,7 +20,7 @@ with ga_table_1 as (
     safe_cast(new_users as INT64) as new_users,
     safe_cast(sessions as INT64) as sessions,
     safe_cast(user_engagement_duration as FLOAT64) as user_engagement_duration
-  from {{ source('ga4', 'ga4_channel_performance_v_1') }}
+  from {{ source('ga4', 'ga_4_channel_performance_v_1') }}
   {% if is_incremental() %}
 
     -- this filter will only be applied on an incremental run
@@ -51,7 +51,7 @@ ga_table_2 as (
     safe_cast(total_revenue as FLOAT64) as total_revenue,
     safe_cast(transactions as INT64) as transactions,
     safe_cast(shipping_amount as FLOAT64) as shipping_amount
-  from {{ source('ga4', 'ga4_channel_performance_v_2') }}
+  from {{ source('ga4', 'ga_4_channel_performance_v_2') }}
   {% if is_incremental() %}
 
     -- this filter will only be applied on an incremental run
@@ -86,7 +86,7 @@ final as (
     country,
     date,
     event_name as eventName,
-    session_campaign_name as sessionCampaignName,
+    session_campaign_name as campaign_name,
     session_default_channel_group as sessionDefaultChannelGroup,
     session_manual_ad_content as sessionManualAdContent,
     session_source_medium as sessionSourceMedium,
@@ -124,4 +124,38 @@ final as (
     left join accounts using (account_name)
     )
 
-select * from final
+select 
+     _fivetran_id,
+    _fivetran_synced,
+    property_name,
+    country,
+    date,
+    eventName,
+    campaign_name,
+    sessionDefaultChannelGroup,
+    sessionManualAdContent,
+    sessionSourceMedium,
+    propertyId,
+    account_name,
+    account_displayName,
+    property_parent,
+    property_displayName,
+    property_currencyCode,
+    addToCarts,
+    bounceRate,
+    keyEvents,
+    engagedSessions,
+    eventCount,
+    eventValue,
+    newUsers,
+    sessions,
+    shippingAmount,
+    taxAmount,
+    totalRevenue,
+    transactions,
+    userEngagementDuration,
+
+    /* Below macro creates additional fields based on form inputs for "Subaccounts, campaign delimitter, custom fields" */
+    {{add_fields("campaign_name")}} /* Replace with the report's campaign name field */
+
+from final

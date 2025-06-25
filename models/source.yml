@@ -3,10 +3,14 @@ sources:
   - name: ga4
     schema: "{{ var('ga4_schema', target.dataset) }}"
     tables:
-      - name: ga4_channel_performance_v_1
-        identifier: "{{ var('ga4_channel_performance_v_1_identifier', 'ga4_channel_performance_v_1') }}"
-      - name: ga4_channel_performance_v_2
-        identifier: "{{ var('ga4_channel_performance_v_2_identifier', 'ga4_channel_performance_v_1') }}"
+      - name: ga_4_channel_performance_v_1
+        identifier: "{{ var('ga4_channel_performance_v_1_identifier', 'ga_4_channel_performance_v_1') }}"
+        config:
+          event_time: date
+      - name: ga_4_channel_performance_v_2
+        identifier: "{{ var('ga4_channel_performance_v_2_identifier', 'ga_4_channel_performance_v_1') }}"
+        config:
+          event_time: date
       - name: accounts
         identifier: "{{ var('accounts_identifier', 'accounts') }}"
       - name: properties

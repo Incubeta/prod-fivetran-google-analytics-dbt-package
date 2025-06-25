@@ -1,7 +1,8 @@
 version: 2
+
 models:
-    - name: googleanalytics4-channel_performance-v1
-      config:
+  - name: googleanalytics4-channel_performance-v1
+    config:
       schema: PUB_base
       alias: googleanalytics4-channel_performance-v1
       materialized: incremental
@@ -11,8 +12,8 @@ models:
       event_time: date
       batch_size: day
       begin: 2025-01-01
-      lookback: "{{var('days_ago', 1)}}"
+      lookback: "{{ var('days_ago', 1) }}"
       partition_by:
-        field: day
+        field: date
         data_type: date
         granularity: day
